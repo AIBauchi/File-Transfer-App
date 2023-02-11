@@ -8,19 +8,23 @@ from ft_app.base import BaseWebSocket
 from ft_app.client import WebSocketClient
 from ft_app.protocol import Commands, MessageTypes
 
+
 @pytest.mark.asyncio
 async def test_scan():
     in_queue = queue.Queue()
     out_queue = queue.Queue()
     client = WebSocketClient("", out_queue, in_queue)
+
     async def ping_pong(host):
         async def handler(websocket, path):
             _ = await websocket.recv()
             greeting = f"{Commands.pong} user"
             await websocket.send(greeting.encode())
+
         start_server = websockets.serve(handler, host, BaseWebSocket.port)
         # raise Exception(dir(start_server))
         await start_server
+
     loop = asyncio.get_event_loop()
     test_ips = ["127.0.0.1", "127.0.0.3", "127.0.0.10"]
     test_ips_ws = [f"ws://{i}:{client.port}" for i in test_ips]
@@ -38,6 +42,7 @@ async def test_scan():
     assert set(test_ips_ws) == set(seen)
     [t.cancel() for t in tasks]
 
+
 @pytest.mark.asyncio
 async def test_scan_nopong():
     in_queue = queue.Queue()
@@ -54,4 +59,3 @@ async def test_scan_nopong():
         except:
             break
     assert seen == []
-

@@ -8,6 +8,7 @@ from ft_app.client import WebSocketClient
 from ft_app.protocol import Message, MessageTypes
 from ft_app.server import WebSocketServer
 
+
 @pytest.mark.asyncio
 async def test_start():
     for i in os.listdir("tests/data/start_test"):

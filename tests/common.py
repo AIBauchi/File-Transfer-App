@@ -5,7 +5,9 @@ from ft_app.base import BaseWebSocket
 from ft_app.protocol import Connection
 
 
-async def get_base(ip: str, connection: Connection = None) -> Tuple[BaseWebSocket, Queue, Queue]:
+async def get_base(
+    ip: str, connection: Connection = None
+) -> Tuple[BaseWebSocket, Queue, Queue]:
     in_queue = Queue()
     out_queue = Queue()
 
@@ -33,7 +35,7 @@ class MockConnection:
 
     def expects(self, msg: str):
         """
-            Store mock response.
+        Store mock response.
         """
         self.next_msgs.append(msg)
         return self
