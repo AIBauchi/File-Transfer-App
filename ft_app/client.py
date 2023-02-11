@@ -1,5 +1,4 @@
 import asyncio
-from queue import Queue
 import websockets
 from websockets.legacy.client import WebSocketClientProtocol
 
